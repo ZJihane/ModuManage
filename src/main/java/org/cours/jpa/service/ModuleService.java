@@ -1,6 +1,6 @@
 package org.cours.jpa.service;
-
-import org.cours.jpa.modele.module;
+import org.cours.jpa.modele.Cours;
+import org.cours.jpa.modele.Module;
 import org.cours.jpa.repository.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,32 +15,27 @@ public class ModuleService {
     @Autowired
     private ModuleRepository moduleRepository;
 
-    // Ajouter un module
-    public void ajouterModule(module m) {
-        moduleRepository.save(m);
-    }
-
-    // Récupérer tous les modules
-    public List<module> getAllModules() {
-        List<module> modules = new ArrayList<>();
+    public List<Module> getAllModules() {
+        List<Module> modules=new ArrayList<>();
         moduleRepository.findAll().forEach(modules::add);
+        //moduleRepository.findAll().forEach(m->modules.add(m));
         return modules;
     }
 
-    // Récupérer un module par son id
-    public Optional<module> getModule(Integer id) {
+    public void ajouterModule(Module module) {
+        moduleRepository.save(module);
+    }
+
+    public Optional<Module> getModule(int id) {
         return moduleRepository.findById(id);
     }
 
-    // Modifier un module existant
-    public void modifierModule(Integer id, module m) {
-        if (moduleRepository.existsById(id)) {
-            m.setId(id);
-            moduleRepository.save(m);
-        }
+
+    public void modifierModule(Integer id, Module module) {
+        moduleRepository.save(module);
+
     }
 
-    // Supprimer un module par son id
     public void supprimerModule(Integer id) {
         moduleRepository.deleteById(id);
     }
